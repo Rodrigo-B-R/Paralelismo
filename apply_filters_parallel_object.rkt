@@ -82,7 +82,7 @@
 
 ;llamar funciones
 (define nT num-cores)
-(define chunk-size (ceiling (/ (length pixels) nT)))
+(define chunk-size (* 4 (ceiling (/ (length pixels) (* 4 nT)))))
 (define-values (chunks tiempo-dividir)
   (medidor (lambda () (spliter-faster pixels chunk-size))))
 
