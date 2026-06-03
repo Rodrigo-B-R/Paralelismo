@@ -27,7 +27,7 @@ bmp
 (define end-seq (current-inexact-milliseconds))
 (displayln (format "\ntiempo: ~a ms\n" (- end-seq start-seq) ) )
 
-(take pixels 16)  ; primeros 4 pixeles
+;(take pixels 16)  ; primeros 4 pixeles
 
 
 (define (invert lista)
@@ -43,7 +43,7 @@ bmp
     ))
 
 (define pix-inverted (invert pixels) ) 
-;(display pix-inverted)
+(display pix-inverted)
 
 ; ; para ver la imagen nueva:
 ; ; reconvierte de pixeles a bytes con (list->bytes pix-inveted)

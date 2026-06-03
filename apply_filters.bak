@@ -1,0 +1,70 @@
+#lang racket
+
+(require racket/future)     ; para paralelo
+(require future-visualizer) ; para ver los hilos
+(require 2htdp/image) 
+
+
+
+(define img (bitmap/file "images/new-york-large.jpg"))
+img
+(define pixels (image->color-list img))
+;pixels
+
+(define num-cores (processor-count))
+
+(define width (image-width img))
+(define rows-per-chunk (ceiling (/ (image-height img) num-cores)))
+(define chunk-size (* width rows-per-chunk))
+
+
+
+(define (spliter-faster lista size)
+  (define (helper lista accu)
+    (cond
+      [(<= (length lista) size)
+       (reverse (cons lista accu))]
+      [else
+       (helper (drop lista size)
+               (cons (take lista size) accu))]
+    )
+  )
+  (helper lista '())
+)
+
+(define (medidor funcion)
+  ; limpiar antes, para que sea menos
+  ; probable limpiar mientras medimos
+  (collect-garbage) 
+  
+  (define start (current-inexact-milliseconds))
+  
+         (define result (funcion) )
+
+  (define end (current-inexact-milliseconds))
+  
+  (values result  (- end start) ) ; 2 values de regreso!
+)
+
+(define-values (chunks tiempo) (medidor (lambda () (spliter-faster pixels chunk-size))))
+
+(displayln (string-append "Tiempo: " (number->string tiempo) " ms"))
+(displayln (string-append "Chunks: " (number->string (length chunks))))
+(displayln (string-append "Pixels en chunk 1: " (number->string (length (car chunks)))))
+
+; Reconstruir el primer chunk como imagen
+(define primer-chunk (car chunks))
+(define chunk-height (/ (length primer-chunk) width))
+(color-list->bitmap primer-chunk width chunk-height)
+
+
+
+
+
+;(define chunk-size (ceiling (/ (length fullDatos) num-cores)) )
+
+
+
+
+
+
