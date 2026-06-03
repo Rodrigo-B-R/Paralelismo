@@ -97,8 +97,8 @@
 
 (displayln (format "\n--- invert ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-inv-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-inv-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-inv-seq tiempo-inv-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-inv-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-inv-seq (+ tiempo-dividir tiempo-inv-par))))
 
 ;sepia
 (define-values (_sep-seq tiempo-sep-seq)
@@ -108,8 +108,8 @@
 
 (displayln (format "\n--- sepia ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-sep-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-sep-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-sep-seq tiempo-sep-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-sep-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-sep-seq (+ tiempo-dividir tiempo-sep-par))))
 
 ;grayscale
 (define-values (_gray-seq tiempo-gray-seq)
@@ -119,8 +119,8 @@
 
 (displayln (format "\n--- grayscale ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-gray-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-gray-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-gray-seq tiempo-gray-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-gray-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-gray-seq (+ tiempo-dividir tiempo-gray-par))))
 
 (chunks->image chunks-inv-par w h)
 (chunks->image chunks-sep-par w h)

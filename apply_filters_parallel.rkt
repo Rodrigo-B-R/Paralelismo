@@ -103,30 +103,30 @@
 
 (displayln (format "\n--- invert ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-inv-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-inv-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-inv-seq tiempo-inv-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-inv-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-inv-seq (+ tiempo-dividir tiempo-inv-par))))
 
 ;grayscale
 (define-values (_chunks-gray-seq tiempo-gray-seq)
-  (medidor (lambda () ( grayscale pixels))))
+  (medidor (lambda () (grayscale pixels))))
 (define-values (chunks-gray-par tiempo-gray-par)
   (medidor (lambda () (apply-parallel grayscale chunks))))
 
 (displayln (format "\n--- grayscale ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-gray-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-gray-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-gray-seq tiempo-gray-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-gray-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-gray-seq (+ tiempo-dividir tiempo-gray-par))))
 
 ;sepia
 (define-values (_chunks-sep-seq tiempo-sep-seq)
-  (medidor (lambda () ( sepia pixels))))
+  (medidor (lambda () (sepia pixels))))
 (define-values (chunks-sep-par tiempo-sep-par)
   (medidor (lambda () (apply-parallel sepia chunks))))
 
 (displayln (format "\n--- sepia ---"))
 (displayln (format "Secuencial:   ~a ms" tiempo-sep-seq))
-(displayln (format "Paralelo:     ~a ms" tiempo-sep-par))
-(displayln (format "Speedup:      ~ax" (/ tiempo-sep-seq tiempo-sep-par)))
+(displayln (format "Paralelo:     ~a ms (+ ~a ms dividir)" tiempo-sep-par tiempo-dividir))
+(displayln (format "Speedup:      ~ax" (/ tiempo-sep-seq (+ tiempo-dividir tiempo-sep-par))))
 
 (chunks->image chunks-inv-par width)
 (chunks->image chunks-gray-par width)
