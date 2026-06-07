@@ -1,6 +1,6 @@
 #lang racket
 
-(require racket/future)     ; para paralelo
+(require racket/future)     
 (require 2htdp/image) 
 
 
@@ -35,8 +35,7 @@
 
 ;mide velocidad de una funcion
 (define (medidor funcion)
-  ; limpiar antes, para que sea menos
-  ; probable limpiar mientras medimos
+  
   (collect-garbage) 
   
   (define start (current-inexact-milliseconds))
@@ -45,7 +44,7 @@
 
   (define end (current-inexact-milliseconds))
   
-  (values result  (- end start) ) ; 2 values de regreso!
+  (values result  (- end start) ) 
 )
 
 ;aplica una funcion a cada chunk en paralelo
