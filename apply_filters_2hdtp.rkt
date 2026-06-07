@@ -1,7 +1,6 @@
 #lang racket
 
 (require racket/future)     ; para paralelo
-(require future-visualizer) ; para ver los hilos
 (require 2htdp/image) 
 
 
